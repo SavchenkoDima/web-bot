@@ -1,6 +1,7 @@
 from mongoengine import *
 import datetime
-import time
+
+from mongoengine import ImageField
 
 connect('web_shop_bot')
 
@@ -8,7 +9,6 @@ connect('web_shop_bot')
 class Texts(Document):
     title = StringField(unique=True)
     body = StringField(max_length=4096)
-    photo_product = ImageField()
 
 
 class Properties(DynamicEmbeddedDocument):
@@ -71,7 +71,7 @@ class Users(Document):
     username = StringField(max_length=255, required=True)
     last_name = StringField(max_length=255, required=True)
     user_id = IntField(required=True)
-    basket = ListField(ReferenceField(Product))
+    basket = ListField(ReferenceField('BasketHistory'))
 
     def add_product(self, obj):
         """
@@ -89,6 +89,18 @@ class Basket(Document):
     bought = BooleanField(default=False)
     bought_date = DateTimeField()
 
+    def add_product(self, obj):
+        """
+        :type obj: object
+        """
+        self.basket_list.append(obj)
+
+    def total_cost(self):
+        total_cost = 0
+        for product in self.basket_list:
+            total_cost += float(product.get_price)
+        return total_cost
+
     @property
     def basket_closed(self):
         self.bought = True
@@ -97,4 +109,4 @@ class Basket(Document):
 
 
 class BasketHistory(Document):
-    basket = ReferenceField(Basket)
+    basket_list = ReferenceField(Basket)
