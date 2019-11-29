@@ -5,7 +5,7 @@ from models import models
 from flask_restful import Api
 from keyboards import ReplyKB
 from flask import Flask, request, abort
-from resousers.resource import CategoryResurse, ProductResurse
+#from resousers.resource import CategoryResurse, ProductResurse
 from models.models import Category, Product, Texts, Users, Basket, BasketHistory
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
 
@@ -14,19 +14,20 @@ bot = telebot.TeleBot(config.TOKEN)
 app = Flask(__name__)
 api = Api(app)
 
-api.add_resource(CategoryResurse, '/Category/', '/Category/<string:id>')
-api.add_resource(ProductResurse, '/Product/', '/Product/<string:id>')
+#api.add_resource(CategoryResurse, '/Category/', '/Category/<string:id>')
+#api.add_resource(ProductResurse, '/Product/', '/Product/<string:id>')
 
 #Process webhook calls
 @app.route('/', methods=['POST'])
 def webhook():
-    if request.headers.get('content-type') == 'application/json':
-        json_string = request.get_data().decode('utf-8')
-        update = telebot.types.Update.de_json(json_string)
-        bot.process_new_updates([update])
-        return ''
-    else:
-        abort(403)
+    pass
+    # if request.headers.get('content-type') == 'application/json':
+    #     json_string = request.get_data().decode('utf-8')
+    #     update = telebot.types.Update.de_json(json_string)
+    #     bot.process_new_updates([update])
+    #     return ''
+    # else:
+    #     abort(403)
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -212,8 +213,8 @@ def inline(message):
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0)
-    import time
-    bot.remove_webhook()
-    time.sleep(1)
-    bot.set_webhook(config.webhook_url, certificate=open('webhook_cert.pem', 'r'))
+    # import time
+    # bot.remove_webhook()
+    # time.sleep(1)
+    # bot.set_webhook(config.webhook_url, certificate=open('webhook_cert.pem', 'r'))
     app.run(debug=True)
