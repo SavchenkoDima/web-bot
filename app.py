@@ -21,13 +21,13 @@ api = Api(app)
 @app.route('/', methods=['POST'])
 def webhook():
     pass
-    # if request.headers.get('content-type') == 'application/json':
-    #     json_string = request.get_data().decode('utf-8')
-    #     update = telebot.types.Update.de_json(json_string)
-    #     bot.process_new_updates([update])
-    #     return ''
-    # else:
-    #     abort(403)
+    if request.headers.get('content-type') == 'application/json':
+        json_string = request.get_data().decode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        bot.process_new_updates([update])
+        return ''
+    else:
+        abort(403)
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -212,9 +212,9 @@ def inline(message):
 
 
 if __name__ == '__main__':
-    bot.polling(none_stop=True, interval=0)
-    # import time
-    # bot.remove_webhook()
-    # time.sleep(1)
-    # bot.set_webhook(config.webhook_url, certificate=open('webhook_cert.pem', 'r'))
+    #bot.polling(none_stop=True, interval=0)
+    import time
+    bot.remove_webhook()
+    time.sleep(1)
+    bot.set_webhook(config.webhook_url, certificate=open('webhook_cert.pem', 'r'))
     app.run(debug=True)
