@@ -5,7 +5,7 @@ from models import models
 from flask_restful import Api
 from keyboards import ReplyKB
 from flask import Flask, request, abort
-#from resousers.resource import CategoryResurse, ProductResurse
+from resousers.resource import CategoryResurse, ProductResurse
 from models.models import Category, Product, Texts, Users, Basket, BasketHistory
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
 
@@ -14,8 +14,8 @@ bot = telebot.TeleBot(config.TOKEN)
 app = Flask(__name__)
 api = Api(app)
 
-#api.add_resource(CategoryResurse, '/Category/', '/Category/<string:id>')
-#api.add_resource(ProductResurse, '/Product/', '/Product/<string:id>')
+api.add_resource(CategoryResurse, '/Category/', '/Category/<string:id>')
+api.add_resource(ProductResurse, '/Product/', '/Product/<string:id>')
 
 #Process webhook calls
 @app.route('/', methods=['POST'])
