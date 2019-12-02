@@ -36,9 +36,9 @@ class UserResurse(Resource):
 class ProductResurse(Resource):
 
     def get(self, id=None):
-        print(request.headers)
-        re = dict(request.headers)
-        print(re['Key'])
+        # print(request.headers)
+        # re = dict(request.headers)
+        # print(re['Key'])
 
         if not id:
             objects = Product.objects

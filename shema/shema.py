@@ -26,13 +26,14 @@ class CategorySchema(Schema):
 
 
 class ProductSchema(Schema):
+    id = fields.String()
     title = fields.String()
     description = fields.String()
     price = fields.Integer()
     new_prise = fields.Integer()
     is_discount = fields.Bool()
     properties = fields.Nested(PropertiesSchema)
-    category = fields.Nested(CategorySchema)
+    category = fields.Nested(CategorySchema, load_only=True)
     photo_product = fields.String()
 
 
