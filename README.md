@@ -1,8 +1,8 @@
 # web-bot
-telegram-bot
-nginx
-rest-Api
-flask
+,telegram-bot
+,nginx
+,rest-Api
+,flask
 
 ngnix - config file
 server {
