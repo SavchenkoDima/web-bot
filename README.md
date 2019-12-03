@@ -53,3 +53,14 @@ server {
 		#try_files $uri $uri/ =404;
 	}
 }
+
+# HOW TO START A PROCESS IN A LINUX BACKGROUND
+
+To close the terminal, but leave the program running from it running, go to the terminal and press Ctrl + Z (this will allow you to access the command line). Then type the following commands in the terminal:
+
+	#disown -h% 1
+
+	#bg 1
+
+The disown command with the -h switch is used to mark the process with the number 1 (this is our running program), do not close when the terminal is closed (the SIGHUP signal will not work on it), and the bg command puts the task in the background. Now you can safely close the terminal (click on the cross or enter the exit command).
+
