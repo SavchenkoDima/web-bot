@@ -33,8 +33,8 @@ class ProductSchema(Schema):
     new_prise = fields.Integer()
     is_discount = fields.Bool()
     properties = fields.Nested(PropertiesSchema)
-    category = fields.Nested(CategorySchema, load_only=True)
-    photo_product = fields.String()
+    category = fields.Nested(CategorySchema, load_only=True, default=None)
+    #photo_product = fields.String()
 
 
 class UsersSchema(Schema):
